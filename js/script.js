@@ -5,6 +5,20 @@ const DATA_URL = "json/data.json"; // URL que contiene los datos que queremos mo
 
 const container = document.getElementById("container"); // "Traemos" utilizando el DOM el div de id "container" para colocar la información en él
 
+fetch(DATA_URL)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error en la red');
+        }
+        return response.json();
+    })
+    .then(data => {
+      showData(data.students);
+    })
+    .catch(error => {
+        console.error('Hubo un problema con la petición fetch:', error);
+    });
+
 /**
  * Función que recibe por parámetro un array con los datos que se mostrarán en el DOM
  * Los datos se mostrarán dentro del div de id "container" y por cada ítem se está creando un nuevo párrafo donde se
